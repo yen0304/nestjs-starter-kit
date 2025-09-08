@@ -1,36 +1,36 @@
 # NestJS Starter Kit
 
-這是一個基於 NestJS 的 starter kit，包含了基本的配置、資料庫設定和工具類別。
+A comprehensive NestJS starter kit with basic configuration, database setup, and utility classes.
 
-## 功能特色
+## Features
 
-- 🚀 NestJS 框架
-- 🗄️ Prisma ORM 支援 PostgreSQL
-- 📝 TypeScript 完整支援
-- 🔧 配置管理系統
-- 📊 Swagger API 文檔
-- 🧪 Jest 測試框架
-- 📏 ESLint + Prettier 代碼規範
-- 🔄 分頁工具類別
-- 📅 日期工具類別
+- 🚀 NestJS Framework
+- 🗄️ Prisma ORM with PostgreSQL support
+- 📝 Full TypeScript support
+- 🔧 Configuration management system
+- 📊 Swagger API documentation
+- 🧪 Jest testing framework
+- 📏 ESLint + Prettier code standards
+- 🔄 Pagination utility classes
+- 📅 Date utility classes
 
-## 快速開始
+## Quick Start
 
-### 1. 安裝依賴
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. 環境變數設定
+### 2. Environment Variables Setup
 
-複製 `env.example` 並重新命名為 `.env`，然後修改其中的配置：
+Copy `env.example` and rename it to `.env`, then modify the configuration:
 
 ```bash
 cp env.example .env
 ```
 
-編輯 `.env` 檔案：
+Edit the `.env` file:
 
 ```env
 # Database
@@ -41,101 +41,100 @@ NODE_ENV=development
 APP_PORT=3000
 ```
 
-### 3. 資料庫設定
+### 3. Database Setup
 
 ```bash
-# 生成 Prisma 客戶端
+# Generate Prisma client
 npm run prisma:generate
 
-# 執行資料庫遷移
+# Run database migrations
 npm run prisma:migrate
 
-# 開啟 Prisma Studio (可選)
+# Open Prisma Studio (optional)
 npm run prisma:studio
 ```
 
-### 4. 啟動應用程式
+### 4. Start the Application
 
 ```bash
-# 開發模式
+# Development mode
 npm run start:dev
 
-# 生產模式
+# Production mode
 npm run build
 npm run start:prod
 ```
 
-## 可用腳本
+## Available Scripts
 
-- `npm run start` - 啟動應用程式
-- `npm run start:dev` - 開發模式啟動
-- `npm run start:debug` - 除錯模式啟動
-- `npm run build` - 建置應用程式
-- `npm run test` - 執行測試
-- `npm run test:watch` - 監聽模式測試
-- `npm run test:cov` - 測試覆蓋率
-- `npm run lint` - 代碼檢查
-- `npm run type-check` - TypeScript 類型檢查
-- `npm run prisma:generate` - 生成 Prisma 客戶端
-- `npm run prisma:migrate` - 執行資料庫遷移
-- `npm run prisma:deploy` - 部署資料庫遷移
-- `npm run prisma:studio` - 開啟 Prisma Studio
+- `npm run start` - Start the application
+- `npm run start:dev` - Start in development mode
+- `npm run start:debug` - Start in debug mode
+- `npm run build` - Build the application
+- `npm run test` - Run tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:cov` - Run tests with coverage
+- `npm run lint` - Run code linting
+- `npm run type-check` - Run TypeScript type checking
+- `npm run prisma:generate` - Generate Prisma client
+- `npm run prisma:migrate` - Run database migrations
+- `npm run prisma:deploy` - Deploy database migrations
+- `npm run prisma:studio` - Open Prisma Studio
 
-## 專案結構
+## Project Structure
 
 ```
 src/
-├── core/                    # 核心模組
-│   ├── config/             # 配置管理
-│   └── database/           # 資料庫相關
-├── modules/                # 業務模組
-├── utils/                  # 工具類別
-├── types/                  # 類型定義
-├── constants/              # 常數定義
-├── enum/                   # 列舉定義
-├── app.module.ts           # 主模組
-├── app.controller.ts       # 主控制器
-├── app.service.ts          # 主服務
-└── main.ts                 # 應用程式入口
+├── core/                    # Core modules
+│   ├── config/             # Configuration management
+│   └── database/           # Database related
+├── modules/                # Business modules
+├── utils/                  # Utility classes
+├── types/                  # Type definitions
+├── constants/              # Constant definitions
+├── enum/                   # Enum definitions
+├── app.module.ts           # Main module
+├── app.controller.ts       # Main controller
+├── app.service.ts          # Main service
+└── main.ts                 # Application entry point
 ```
 
-## API 文檔
+## API Documentation
 
-啟動應用程式後，可以訪問 Swagger API 文檔：
+After starting the application, you can access the Swagger API documentation:
 
-- 開發環境: http://localhost:3000/api-docs
+- Development: http://localhost:3000/api-docs
 
-## 資料庫
+## Database
 
-本專案使用 Prisma 作為 ORM，支援 PostgreSQL 資料庫。
+This project uses Prisma as ORM with PostgreSQL database support.
 
-### 新增模型
+### Adding Models
 
-1. 在 `prisma/schema/schema.prisma` 中定義模型
-2. 執行 `npm run prisma:migrate` 建立遷移
-3. 執行 `npm run prisma:generate` 生成客戶端
+1. Define models in `prisma/schema.prisma`
+2. Run `npm run prisma:migrate` to create migrations
+3. Run `npm run prisma:generate` to generate client
 
-## 開發指南
+## Development Guide
 
-### 新增模組
+### Adding Modules
 
 ```bash
-# 使用 NestJS CLI 生成模組
+# Use NestJS CLI to generate modules
 nest generate module modules/your-module
 nest generate controller modules/your-module
 nest generate service modules/your-module
 ```
 
-### 配置管理
+### Configuration Management
 
-所有配置都在 `src/core/config/` 目錄下管理，使用 class-validator 進行驗證。
+All configurations are managed in the `src/core/config/` directory with class-validator validation.
 
-### 工具類別
+### Utility Classes
 
-- `date-util.ts` - 日期相關工具函數
-- `pagination.ts` - 分頁相關工具函數
-- `validate-config.ts` - 配置驗證工具
+- `pagination.ts` - Pagination related utility functions
+- `validate-config.ts` - Configuration validation utilities
 
-## 授權
+## License
 
 MIT License

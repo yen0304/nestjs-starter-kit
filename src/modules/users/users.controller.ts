@@ -11,22 +11,25 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @ApiOperation({ summary: '建立新使用者' })
-  @ApiResponse({ status: 201, description: '成功建立使用者' })
+  @ApiOperation({ summary: 'Create new user' })
+  @ApiResponse({ status: 201, description: 'Successfully created user' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  @ApiOperation({ summary: '取得使用者列表' })
-  @ApiResponse({ status: 200, description: '成功取得使用者列表' })
+  @ApiOperation({ summary: 'Get users list' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved users list',
+  })
   findAll(@Query() paginationOptions: PaginationOptions) {
     return this.usersService.findAll(paginationOptions);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: '根據 ID 取得使用者' })
-  @ApiResponse({ status: 200, description: '成功取得使用者' })
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved user' })
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }

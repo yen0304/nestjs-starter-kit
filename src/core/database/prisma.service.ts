@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { AllConfig } from './types/all-config.type';
 
-const timeout = 1000 * 60 * 5; //設定5分鐘
+const timeout = 1000 * 60 * 5; // Set 5 minutes timeout
 
 @Injectable()
 export class PrismaService
@@ -38,7 +38,7 @@ export class PrismaService
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error';
       this.logger.error(`Failed to connect to Prisma: ${errorMessage}`);
-      // 重試連接
+      // Retry connection
       this.logger.log('Attempting to reconnect in 3 seconds...');
       setTimeout(async () => {
         try {

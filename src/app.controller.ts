@@ -9,15 +9,18 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @ApiOperation({ summary: '取得應用程式狀態' })
-  @ApiResponse({ status: 200, description: '成功取得應用程式狀態' })
+  @ApiOperation({ summary: 'Get application status' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved application status',
+  })
   getHello(): string {
     return this.appService.getHello();
   }
 
   @Get('health')
-  @ApiOperation({ summary: '健康檢查' })
-  @ApiResponse({ status: 200, description: '應用程式健康狀態' })
+  @ApiOperation({ summary: 'Health check' })
+  @ApiResponse({ status: 200, description: 'Application health status' })
   getHealth(): { status: string; timestamp: string } {
     return this.appService.getHealth();
   }

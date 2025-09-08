@@ -1,7 +1,7 @@
 {
   "name": "nestjs-starter-kit",
   "version": "1.0.0",
-  "description": "NestJS Starter Kit with Prisma and TypeScript",
+  "description": "A comprehensive NestJS starter kit with Prisma ORM, TypeScript, and essential utilities",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
