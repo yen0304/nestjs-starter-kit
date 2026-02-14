@@ -1,14 +1,25 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters", "views", "relationJoins", "multiSchema"]
   binaryTargets   = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("dbConnectionString")
-  schemas  = ["public"]
 }
+
+// ─── Enums ───────────────────────────────────────────────
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+// ─── Models ──────────────────────────────────────────────
 
 model User {
   id        Int      @id @default(autoincrement())
@@ -17,5 +28,67 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@schema("public")
+  products Product[]
+  orders   Order[]
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String
+  parentId  Int?
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryTree")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  products Product[]
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  products Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal   @db.Decimal(10, 2)
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  createdById Int
+  createdBy   User      @relation(fields: [createdById], references: [id])
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tags       Tag[]
+  orderItems OrderItem[]
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+
+  @@unique([orderId, productId])
 }

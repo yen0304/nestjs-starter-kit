@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import {
   PaginationOptions,
   createPaginationResult,
+  getSkip,
 } from '../../utils/pagination';
 import { PrismaService } from '../../core/database/prisma.service';
 
@@ -12,31 +13,40 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    // 這裡是範例，實際使用時需要根據 Prisma schema 調整
-    return {
-      message: 'User created successfully',
-      data: createUserDto,
-    };
+    return this.prisma.user.create({
+      data: {
+        name: createUserDto.name,
+        email: createUserDto.email,
+      },
+    });
   }
 
   async findAll(paginationOptions: PaginationOptions) {
     const { page, limit } = paginationOptions;
+    const skip = getSkip(page, limit);
 
-    // 這裡是範例，實際使用時需要根據 Prisma schema 調整
-    const mockData = [
-      { id: '1', name: 'John Doe', email: 'john@example.com' },
-      { id: '2', name: 'Jane Smith', email: 'jane@example.com' },
-    ];
+    const [data, total] = await Promise.all([
+      this.prisma.user.findMany({
+        skip,
+        take: limit,
+        orderBy: { id: 'asc' },
+      }),
+      this.prisma.user.count(),
+    ]);
 
-    return createPaginationResult(mockData, mockData.length, page, limit);
+    return createPaginationResult(data, total, page, limit);
   }
 
-  async findOne(id: string) {
-    // 這裡是範例，實際使用時需要根據 Prisma schema 調整
-    return {
-      id,
-      name: 'John Doe',
-      email: 'john@example.com',
-    };
+  async findOne(id: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: { products: true, orders: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`);
+    }
+
+    return user;
   }
 }

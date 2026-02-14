@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -23,7 +21,6 @@ async function bootstrap() {
     'http://localhost:3001',
   ];
 
-  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(prefix);
 
   app.use(

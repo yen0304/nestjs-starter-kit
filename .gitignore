@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+#GitHub
+.github/skills
+.github/prompts
 # Logs
 logs
 *.log

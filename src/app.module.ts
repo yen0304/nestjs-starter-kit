@@ -7,6 +7,10 @@ import { DatabaseModule } from './core/database/database.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { ProductsModule } from './modules/products/products.module';
+import { TagsModule } from './modules/tags/tags.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
@@ -17,6 +21,10 @@ import { UsersModule } from './modules/users/users.module';
     }),
     DatabaseModule,
     UsersModule,
+    CategoriesModule,
+    TagsModule,
+    ProductsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
