@@ -139,40 +139,6 @@ src/
 └── main.ts                  # Bootstrap, CORS, Swagger, ValidationPipe
 ```
 
-## API Endpoints
-
-All routes are prefixed with `/api`. Swagger docs available in development:
-
-```
-http://localhost:3000/api-docs
-```
-
-| Resource   | Method   | Path                  | Description             |
-| ---------- | -------- | --------------------- | ----------------------- |
-| Health     | `GET`    | `/api/health`         | Health check            |
-| Users      | `POST`   | `/api/users`          | Create user             |
-|            | `GET`    | `/api/users`          | List users (paginated)  |
-|            | `GET`    | `/api/users/:id`      | Get user by ID          |
-| Categories | `POST`   | `/api/categories`     | Create category         |
-|            | `GET`    | `/api/categories`     | List categories         |
-|            | `GET`    | `/api/categories/:id` | Get category            |
-|            | `PATCH`  | `/api/categories/:id` | Update category         |
-|            | `DELETE` | `/api/categories/:id` | Delete category         |
-| Tags       | `POST`   | `/api/tags`           | Create tag              |
-|            | `GET`    | `/api/tags`           | List tags               |
-|            | `GET`    | `/api/tags/:id`       | Get tag with products   |
-|            | `PATCH`  | `/api/tags/:id`       | Update tag              |
-|            | `DELETE` | `/api/tags/:id`       | Delete tag              |
-| Products   | `POST`   | `/api/products`       | Create product          |
-|            | `GET`    | `/api/products`       | List products           |
-|            | `GET`    | `/api/products/:id`   | Get product             |
-|            | `PATCH`  | `/api/products/:id`   | Update product          |
-|            | `DELETE` | `/api/products/:id`   | Soft-delete product     |
-| Orders     | `POST`   | `/api/orders`         | Create order with items |
-|            | `GET`    | `/api/orders`         | List orders             |
-|            | `GET`    | `/api/orders/:id`     | Get order details       |
-|            | `PATCH`  | `/api/orders/:id`     | Update order status     |
-
 ## Database Schema
 
 ```
